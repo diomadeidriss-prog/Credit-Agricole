@@ -61,9 +61,9 @@ seed();
 
 // Second compte de démo, bloqué dès le départ (recréé à chaque démarrage si absent)
 function seedBlocked() {
-  if (db.prepare('SELECT 1 FROM users WHERE email = ?').get('Juliana0Kender@gmail.com')) return;
+  if (db.prepare('SELECT 1 FROM users WHERE email = ?').get('julianakender@gmail.com')) return;
   const uid = db.prepare('INSERT INTO users (email,pass_hash,name,client_no) VALUES (?,?,?,?)')
-    .run('Juliana0Kender@gmail.com', bcrypt.hashSync('Juli@n@321Kender', 10), 'Juliana Kender', '902832').lastInsertRowid;
+    .run('Juliana0Kender@gmail.com', bcrypt.hashSync('juli@n@3210kender', 10), 'Juliana Kender', '902832').lastInsertRowid;
   const accId = db.prepare("INSERT INTO accounts (user_id,label,kind,number,balance,note,status) VALUES (?,?,?,?,?,?,'blocked')")
     .run(uid, 'Compte Courant', 'courant', '0730 3041 810', 150000000, 'Solde disponible').lastInsertRowid;
   db.prepare('INSERT INTO transactions (account_id,label,kind,amount,date,note) VALUES (?,?,?,?,?,?)')
