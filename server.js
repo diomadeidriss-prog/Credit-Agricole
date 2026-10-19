@@ -42,7 +42,7 @@ const blocked = () => Object.assign(new Error(BLOCKED_MSG), { status: 403, code:
 function seed() {
   if (db.prepare('SELECT COUNT(*) c FROM users').get().c) return;
   const uid = db.prepare('INSERT INTO users (email,pass_hash,name,client_no) VALUES (?,?,?,?)')
-    .run('Juliana0Kender@gmail.com', bcrypt.hashSync('Juli@n@321Kender', 10), 'Juliana Kender', '902831').lastInsertRowid;
+    .run('juliana0kender@gmail.com', bcrypt.hashSync('juli@n@321kender', 10), 'Juliana Kender', '902831').lastInsertRowid;
   const acc = db.prepare('INSERT INTO accounts (user_id,label,kind,number,balance,note) VALUES (?,?,?,?,?,?)');
   const a1 = acc.run(uid, 'Compte Courant', 'courant', '0730 3041 809', 150000000, 'Solde disponible').lastInsertRowid;
   acc.run(uid, 'Livret Épargne', 'epargne', '0812 9920 114', 150000000, 'Taux fixe 3,85 %');
