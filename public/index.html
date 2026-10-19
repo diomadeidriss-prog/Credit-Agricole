@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-200">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Souverain Hub - Application Mobile</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+        
+        body {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Brand palette */
+        .bg-ca-green { background-color: #00875a; }
+        .bg-ca-green-dark { background-color: #006b47; }
+        .text-ca-green { color: #00875a; }
+        .border-ca-green { border-color: #00875a; }
+
+        /* Mobile Container Frame */
+        .mobile-container {
+            max-width: 412px;
+            width: 100%;
+            height: 840px;
+            max-height: 98vh;
+            background-color: #f4f6f7;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Scrollbar Hiding Utilities */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animation utilities */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Toggle switch styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #00875a;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #00875a;
+        }
+    </style>
+</head>
+<body class="min-h-full flex justify-center items-center p-0 sm:p-4 select-none">
+
+    <!-- Mobile Screen Wrapper -->
+    <div class="mobile-container relative flex flex-col justify-between overflow-hidden sm:rounded-[38px] border-slate-300 sm:border-[8px]">
+        
+        <!-- Top Status Bar -->
+        <div class="bg-white text-slate-800 px-6 pt-3 pb-1 flex justify-between items-center text-xs font-semibold z-30 flex-shrink-0">
+            <span>18:40</span>
+            <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-signal text-[11px]"></i>
+                <i class="fa-solid fa-wifi text-[11px]"></i>
+                <div class="flex items-center bg-black text-white px-1.5 py-0.5 rounded-md text-[9px] font-bold leading-none">
+                    56
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Header App Bar -->
+        <header class="bg-white px-5 py-3 flex items-center justify-between border-b border-slate-100 z-30 flex-shrink-0">
+            <!-- Brand Logo / Name -->
+            <div class="flex items-center space-x-2">
+                <img src="Credit-Agricole-logo.png" alt="Logo" class="w-7 h-7 rounded-md object-contain">
+                <div class="flex flex-col">
+                    <span class="text-ca-green font-extrabold text-sm tracking-tight leading-none uppercase">Crédit Agricole</span>
+                </div>
+            </div>
+
+            <!-- Header Action Icons -->
+            <div class="flex items-center space-x-2">
+                <button onclick="showToast('Notification: Aucun nouveau message')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition-colors">
+                    <i class="fa-regular fa-bell text-xs"></i>
+                </button>
+                <button onclick="showToast('Déconnexion effectuée avec succès')" class="w-8 h-8 rounded-full bg-ca-green text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all shadow-sm">
+                    <i class="fa-solid fa-power-off text-xs"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content Area -->
+        <main class="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar relative bg-[#f4f6f7]">
+
+            <!-- ================= TAB 1: ACCUEIL ================= -->
+            <div id="tab-accueil" class="tab-content active space-y-4">
+                <!-- Greeting & Connection Info -->
+                <div class="flex justify-between items-start text-xs pt-1 px-1">
+                    <div>
+                        <p class="text-slate-800 font-semibold">Bonsoir</p>
+                        <p class="text-slate-900 font-bold uppercase tracking-tight leading-tight">JULIANA<br>KENDER</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-slate-800 font-semibold">Dernière<br>connexion:</p>
+                        <p class="text-slate-500 text-[11px] mt-0.5">21/06/2025 18:40</p>
+                    </div>
+                </div>
+
+                <!-- Main Account Balance Card -->
+                <div class="bg-ca-green text-white rounded-2xl p-5 shadow-md relative overflow-hidden text-center">
+                    <p class="text-[11px] font-medium tracking-wide uppercase opacity-90">COMPTE DE DÉPÔT n°07303041809</p>
+                    <h2 class="text-sm font-bold uppercase tracking-tight mt-0.5">JULIANA KENDER</h2>
+
+                    <!-- Main Balance Row -->
+                    <div class="flex items-center justify-center space-x-3 my-4">
+                        <div class="w-7 h-7 rounded-full border-2 border-white/80 flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <span class="text-3xl font-extrabold tracking-tight">2 500 000,00 €</span>
+                    </div>
+
+                    <!-- Quick Action Chips -->
+                    <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-white/20 text-xs">
+                        <button onclick="switchTab('virement')" class="bg-white/10 hover:bg-white/20 rounded-xl py-2 font-medium flex items-center justify-center space-x-1.5 transition">
+                            <i class="fa-solid fa-paper-plane text-[11px]"></i>
+                            <span>Faire un virement</span>
+                        </button>
+                        <button onclick="switchTab('comptes')" class="bg-white/10 hover:bg-white/20 rounded-xl py-2 font-medium flex items-center justify-center space-x-1.5 transition">
+                            <i class="fa-solid fa-list-check text-[11px]"></i>
+                            <span>Voir le détail</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dernières Opérations Section -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-slate-700 text-xs font-semibold">Dernières opérations</h3>
+                        <button onclick="switchTab('comptes')" class="text-[11px] text-ca-green font-semibold">Voir tout</button>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div onclick="openTransactionModal('Virement reçu - Cabinet Horizon', '+15 000,00 €', '19/06/2025', 'Règlement facture #4892 - Prestation conseil')" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-arrow-down-left"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Cabinet Horizon</p>
+                                    <p class="text-[10px] text-slate-400">19/06/2025 • Virement reçu</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600">+15 000,00 €</span>
+                        </div>
+
+                        <div onclick="openTransactionModal('Prélèvement - Souverain Patrimoine', '-2 450,00 €', '15/06/2025', 'Gestion d\'actifs mensualisée')" class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-arrow-up-right"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Souverain Patrimoine</p>
+                                    <p class="text-[10px] text-slate-400">15/06/2025 • Prélèvement</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-900">-2 450,00 €</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMPORTANT Security Alert Banner -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex items-stretch">
+                    <div class="bg-ca-green w-24 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-shield-halved text-white text-2xl"></i>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <p class="text-xs text-slate-700 leading-snug">
+                            <strong class="font-bold text-slate-900">IMPORTANT</strong> - Veillez à maintenir vos coordonnées à jour pour une relation personnalisée et sécurisée.
+                        </p>
+                        <button onclick="switchTab('menu')" class="mt-3 text-xs font-semibold text-ca-green hover:underline block">
+                            Accéder à mes coordonnées
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mon Epargne Section -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                    <h3 class="text-slate-900 text-xs font-bold mb-3">Mon épargne</h3>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-piggy-bank text-slate-800 text-xl"></i>
+                            <span class="text-xs text-slate-600 font-normal">
+                                Portfolio Épargne & Titres<br>
+                                <strong class="text-slate-900 font-bold">1 120 000,00 €</strong>
+                            </span>
+                        </div>
+                        <button onclick="switchTab('comptes')" class="text-xs text-ca-green font-semibold hover:underline text-right">
+                            Découvrir<br>nos offres
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 2: COMPTES ================= -->
+            <div id="tab-comptes" class="tab-content space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Mes Comptes & Synthèse</h2>
+                        <p class="text-xs text-slate-500">Vue consolidée de votre patrimoine</p>
+                    </div>
+                    <button onclick="showToast('Relevé PDF global généré')" class="w-8 h-8 rounded-full bg-white text-ca-green border border-slate-200 flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </button>
+                </div>
+
+                <!-- Account List Cards -->
+                <div class="space-y-3">
+                    <!-- Compte 1 -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Principal</span>
+                                <h3 class="text-xs font-bold text-slate-900 mt-1">Compte Courant VIP</h3>
+                                <p class="text-[10px] text-slate-400">N° 0730 3041 809</p>
+                            </div>
+                            <span class="text-base font-black text-slate-900">2 500 000,00 €</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                            <span class="text-[11px] text-slate-500">Solde disponible</span>
+                            <button onclick="filterTransactions('courant')" class="text-ca-green font-semibold hover:underline">Voir l'historique →</button>
+                        </div>
+                    </div>
+
+                    <!-- Compte 2 -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Épargne</span>
+                                <h3 class="text-xs font-bold text-slate-900 mt-1">Livret Souverain Privé</h3>
+                                <p class="text-[10px] text-slate-400">N° 0812 9920 114</p>
+                            </div>
+                            <span class="text-base font-black text-slate-900">820 000,00 €</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                            <span class="text-[11px] text-slate-500">Taux fixe 3.85%</span>
+                            <button onclick="filterTransactions('epargne')" class="text-ca-green font-semibold hover:underline">Voir l'historique →</button>
+                        </div>
+                    </div>
+
+                    <!-- Compte 3 -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Souverain Vault</span>
+                                <h3 class="text-xs font-bold text-slate-900 mt-1">Coffre Fort Numérique</h3>
+                                <p class="text-[10px] text-slate-400">N° 0001 5541 990</p>
+                            </div>
+                            <span class="text-base font-black text-slate-900">300 000,00 €</span>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                            <span class="text-[11px] text-slate-500">Garantie Souverain Protect</span>
+                            <button onclick="showToast('Accès sécurisé au coffre requiert biométrie')" class="text-ca-green font-semibold hover:underline">Déverrouiller →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History Block -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold text-slate-900">Historique des Transactions</h3>
+                        <i class="fa-solid fa-sliders text-xs text-slate-400"></i>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                        <input type="text" id="txSearch" onkeyup="searchTx()" placeholder="Rechercher un tiers, libellé..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs focus:outline-none focus:border-ca-green">
+                    </div>
+
+                    <!-- Transaction Items List -->
+                    <div id="txList" class="space-y-2 pt-1">
+                        <div class="tx-item flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer border-b border-slate-50" onclick="openTransactionModal('Virement reçu - Cabinet Horizon', '+15 000,00 €', '19/06/2025', 'Règlement facture #4892 - Prestation conseil')">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-arrow-down-left"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Cabinet Horizon</p>
+                                    <p class="text-[10px] text-slate-400">19/06/2025 • Virement SePa</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600">+15 000,00 €</span>
+                        </div>
+
+                        <div class="tx-item flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer border-b border-slate-50" onclick="openTransactionModal('Prélèvement - Souverain Patrimoine', '-2 450,00 €', '15/06/2025', 'Gestion d\'actifs mensualisée')">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-arrow-up-right"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Souverain Patrimoine</p>
+                                    <p class="text-[10px] text-slate-400">15/06/2025 • Prélèvement automatique</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-900">-2 450,00 €</span>
+                        </div>
+
+                        <div class="tx-item flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer border-b border-slate-50" onclick="openTransactionModal('Paiement CB - Restaurant Le Levanteur', '-180,50 €', '12/06/2025', 'Carte Privilège **** 9012')">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Restaurant Le Levanteur</p>
+                                    <p class="text-[10px] text-slate-400">12/06/2025 • Carte Bancaire</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-900">-180,50 €</span>
+                        </div>
+
+                        <div class="tx-item flex items-center justify-between p-2 rounded-xl hover:bg-slate-50 cursor-pointer" onclick="openTransactionModal('Intérêts - Livret Souverain', '+3 120,00 €', '01/06/2025', 'Versement semestriel d\'intérêts')">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-percent"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Intérêts Livret Souverain</p>
+                                    <p class="text-[10px] text-slate-400">01/06/2025 • Crédit d'intérêts</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600">+3 120,00 €</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 3: CONTACT ================= -->
+            <div id="tab-contact" class="tab-content space-y-4">
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover border-2 border-ca-green" alt="Conseiller">
+                    <div class="flex-1">
+                        <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 rounded-full">Conseiller Dédié</span>
+                        <h3 class="text-xs font-bold text-slate-900 mt-0.5">Éléonore de Saint-Germain</h3>
+                        <p class="text-[10px] text-slate-500">Gestion de Fortune & Private Banking</p>
+                    </div>
+                    <button onclick="showToast('Appel vers votre conseiller...')" class="w-8 h-8 bg-ca-green text-white rounded-full flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid fa-phone"></i>
+                    </button>
+                </div>
+
+                <!-- Live Advisor Chat Mockup -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-slate-900 flex items-center justify-between">
+                        <span>Messagerie Sécurisée</span>
+                        <span class="flex items-center text-[10px] text-emerald-600 font-normal"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1 animate-pulse"></span> En ligne</span>
+                    </h3>
+
+                    <!-- Message Feed -->
+                    <div id="chatBox" class="bg-slate-50 rounded-xl p-3 h-36 overflow-y-auto space-y-2 text-xs no-scrollbar">
+                        <div class="bg-white p-2.5 rounded-2xl rounded-tl-none border border-slate-200 max-w-[85%] text-slate-700 shadow-2xs">
+                            Bonjour Blaise, votre synthèse trimestrielle est prête. Avez-vous des questions sur vos placements ?
+                            <span class="block text-[9px] text-slate-400 mt-1">10:14</span>
+                        </div>
+                        <div class="bg-ca-green text-white p-2.5 rounded-2xl rounded-tr-none max-w-[85%] ml-auto shadow-2xs">
+                            Bonjour Éléonore, merci ! Je souhaite programmer un virement d'investissement ce vendredi.
+                            <span class="block text-[9px] text-white/70 mt-1 text-right">10:18</span>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="flex items-center space-x-2 pt-1">
+                        <input type="text" id="chatInput" placeholder="Écrire un message privé..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-ca-green">
+                        <button onclick="sendMessage()" class="bg-ca-green text-white p-2 rounded-xl text-xs hover:bg-ca-green-dark transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Appointment & Emergency Cards -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div onclick="showToast('Module de prise de rendez-vous ouvert')" class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-ca-green transition">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-50 text-ca-green flex items-center justify-center text-sm mb-2">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-900">Prendre RDV</h4>
+                        <p class="text-[10px] text-slate-500 mt-0.5">En agence ou visioconférence</p>
+                    </div>
+
+                    <div onclick="showToast('Mise en relation avec le service Opposition 24/7')" class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-rose-300 transition">
+                        <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-sm mb-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-900">Urgence & Opposition</h4>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Perte ou vol de carte 24h/7j</p>
+                    </div>
+                </div>
+
+                <!-- Agency Map Mockup -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2">
+                    <h3 class="text-xs font-bold text-slate-900">Mon Agence Souverain</h3>
+                    <p class="text-[10px] text-slate-500">14 Place Vendôme, 75001 Paris</p>
+                    <div class="h-24 bg-slate-200 rounded-xl overflow-hidden relative flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60" alt="Map">
+                        <div class="absolute bg-ca-green text-white p-2 rounded-full shadow-lg">
+                            <i class="fa-solid fa-location-dot text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 4: VIREMENT ================= -->
+            <div id="tab-virement" class="tab-content space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Effectuer un Virement</h2>
+                        <p class="text-xs text-slate-500">Transferts SEPA rapides et sécurisés</p>
+                    </div>
+                    <button onclick="openBeneficiaryModal()" class="text-xs text-ca-green font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        + Bénéﬁciaire
+                    </button>
+                </div>
+
+                <!-- Transfer Form -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3 text-xs">
+                    
+                    <!-- From Account -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Compte à débiter</label>
+                        <select id="transferFrom" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2 font-medium text-slate-800 focus:outline-none focus:border-ca-green">
+                            <option>Compte Courant VIP - 2 500 000,00 €</option>
+                            <option>Livret Souverain Privé - 820 000,00 €</option>
+                        </select>
+                    </div>
+
+                    <!-- To Account / Beneficiary -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Bénéficiaire</label>
+                        <select id="transferTo" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2 font-medium text-slate-800 focus:outline-none focus:border-ca-green">
+                            <option>Cabinet Horizon - FR76 3000 2005 ... 912</option>
+                            <option>Souverain Patrimoine - FR76 1002 ... 401</option>
+                            <option>Juliana Kender (Compte Épargne)</option>
+                        </select>
+                    </div>
+
+                    <!-- Amount Selection -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Montant (€)</label>
+                        <input type="number" id="transferAmount" placeholder="0.00" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2 text-base font-bold text-slate-900 focus:outline-none focus:border-ca-green">
+                        
+                        <!-- Preset Amount Chips -->
+                        <div class="flex space-x-1.5 mt-2">
+                            <button onclick="setAmount(50)" class="flex-1 bg-slate-100 hover:bg-slate-200 py-1 rounded-lg font-medium text-[11px]">50 €</button>
+                            <button onclick="setAmount(100)" class="flex-1 bg-slate-100 hover:bg-slate-200 py-1 rounded-lg font-medium text-[11px]">100 €</button>
+                            <button onclick="setAmount(500)" class="flex-1 bg-slate-100 hover:bg-slate-200 py-1 rounded-lg font-medium text-[11px]">500 €</button>
+                            <button onclick="setAmount(1000)" class="flex-1 bg-slate-100 hover:bg-slate-200 py-1 rounded-lg font-medium text-[11px]">1000 €</button>
+                        </div>
+                    </div>
+
+                    <!-- Reference / Wording -->
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Motif du virement (facultatif)</label>
+                        <input type="text" id="transferReason" placeholder="Ex: Règlement facture" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs focus:outline-none focus:border-ca-green">
+                    </div>
+
+                    <!-- Transfer Execution Type -->
+                    <div class="pt-1">
+                        <label class="block font-semibold text-slate-700 mb-1">Type d'exécution</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center space-x-2 border border-slate-200 p-2 rounded-xl bg-slate-50 cursor-pointer">
+                                <input type="radio" name="execType" checked class="accent-ca-green">
+                                <span class="text-[11px]">Immédiat</span>
+                            </label>
+                            <label class="flex items-center space-x-2 border border-slate-200 p-2 rounded-xl bg-slate-50 cursor-pointer">
+                                <input type="radio" name="execType" class="accent-ca-green">
+                                <span class="text-[11px]">Différé</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button onclick="executeTransfer()" class="w-full bg-ca-green hover:bg-ca-green-dark text-white font-bold py-3 rounded-xl shadow-md transition-all mt-2 active:scale-98">
+                        Valider le Virement
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= TAB 5: MENU ================= -->
+            <div id="tab-menu" class="tab-content space-y-4">
+                <!-- User Profile Summary Header -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-ca-green text-white flex items-center justify-center font-bold text-base shadow-sm">
+                        MG
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900"> JULIANA KENDER</h3>
+                        <p class="text-[10px] text-slate-500">Profil Privilège • Client #902831</p>
+                        <span class="inline-block mt-1 bg-emerald-100 text-emerald-800 text-[9px] font-semibold px-2 py-0.5 rounded-full">
+                            <i class="fa-solid fa-check-circle mr-1"></i>Identité Vérifiée
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Cards Management Section -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold text-slate-900">Gestion des Cartes</h3>
+                    
+                    <!-- Digital Card Visual -->
+                    <div class="bg-gradient-to-tr from-slate-900 via-slate-800 to-emerald-950 text-white rounded-xl p-3.5 shadow-md relative overflow-hidden">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] tracking-widest uppercase font-bold opacity-80">Souverain Black Card</span>
+                            <i class="fa-solid fa-wifi text-xs opacity-70"></i>
+                        </div>
+                        <div class="my-3">
+                            <p class="font-mono text-sm tracking-widest">•••• •••• •••• 9012</p>
+                        </div>
+                        <div class="flex justify-between items-end text-[9px] opacity-80">
+                            <span>EXP: 11/28</span>
+                            <span>JULIANA KENDER / </span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Card Options -->
+                    <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                        <button onclick="toggleCardLock(this)" class="p-2 border border-slate-200 rounded-xl font-semibold text-slate-700 flex items-center justify-center space-x-1.5 hover:bg-slate-50">
+                            <i class="fa-solid fa-lock text-ca-green"></i>
+                            <span id="lockStatus">Verrouiller Carte</span>
+                        </button>
+                        <button onclick="showToast('Code confidentiel envoyé par SMS sécurisé')" class="p-2 border border-slate-200 rounded-xl font-semibold text-slate-700 flex items-center justify-center space-x-1.5 hover:bg-slate-50">
+                            <i class="fa-solid fa-eye text-ca-green"></i>
+                            <span>Voir le code PIN</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Settings & Preferences -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3 text-xs">
+                    <h3 class="font-bold text-slate-900">Sécurité & Préférences</h3>
+
+                    <div class="flex justify-between items-center py-1">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-fingerprint text-ca-green text-sm"></i>
+                            <span class="text-slate-700 font-medium">Connexion Face ID / Biométrie</span>
+                        </div>
+                        <input type="checkbox" checked class="accent-ca-green w-4 h-4 cursor-pointer">
+                    </div>
+
+                    <div class="flex justify-between items-center py-1 border-t border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-bell text-ca-green text-sm"></i>
+                            <span class="text-slate-700 font-medium">Notifications d'opérations</span>
+                        </div>
+                        <input type="checkbox" checked class="accent-ca-green w-4 h-4 cursor-pointer">
+                    </div>
+
+                    <div class="flex justify-between items-center py-1 border-t border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-moon text-ca-green text-sm"></i>
+                            <span class="text-slate-700 font-medium">Mode Sombre</span>
+                        </div>
+                        <input type="checkbox" onchange="toggleDarkMode(this)" class="accent-ca-green w-4 h-4 cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <button onclick="showToast('Déconnexion effectuée avec succès')" class="w-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold py-3 rounded-2xl text-xs flex items-center justify-center space-x-2 transition">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Se déconnecter de l'application</span>
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bg-white border-t border-slate-200 py-2 px-2 z-30 flex-shrink-0">
+            <div class="flex justify-around items-center text-center">
+                <!-- Accueil -->
+                <button onclick="switchTab('accueil')" id="nav-accueil" class="nav-btn flex flex-col items-center text-ca-green font-medium">
+                    <i class="fa-solid fa-house text-lg"></i>
+                    <span class="text-[10px] mt-0.5">Accueil</span>
+                </button>
+                <!-- Comptes -->
+                <button onclick="switchTab('comptes')" id="nav-comptes" class="nav-btn flex flex-col items-center text-slate-500 hover:text-slate-800 transition-colors">
+                    <i class="fa-solid fa-database text-lg"></i>
+                    <span class="text-[10px] mt-0.5">Comptes</span>
+                </button>
+                <!-- Contact -->
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn flex flex-col items-center text-slate-500 hover:text-slate-800 transition-colors">
+                    <i class="fa-solid fa-comment-dots text-lg"></i>
+                    <span class="text-[10px] mt-0.5">Contact</span>
+                </button>
+                <!-- Virement -->
+                <button onclick="switchTab('virement')" id="nav-virement" class="nav-btn flex flex-col items-center text-slate-500 hover:text-slate-800 transition-colors">
+                    <i class="fa-solid fa-arrow-right-arrow-left text-lg"></i>
+                    <span class="text-[10px] mt-0.5">Virement</span>
+                </button>
+                <!-- Menu -->
+                <button onclick="switchTab('menu')" id="nav-menu" class="nav-btn flex flex-col items-center text-slate-500 hover:text-slate-800 transition-colors">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                    <span class="text-[10px] mt-0.5">Menu</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- iOS Home Indicator -->
+        <div class="bg-slate-200 pb-1 flex justify-center z-30 flex-shrink-0">
+            <div class="w-32 h-1 bg-slate-900 rounded-full my-1"></div>
+        </div>
+
+        <!-- Floating Toast Message Alert -->
+        <div id="toast" class="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300">
+            <span id="toastText">Action effectuée</span>
+        </div>
+
+        <!-- Modal: Transaction Details -->
+        <div id="txModal" class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center hidden">
+            <div class="bg-white w-full rounded-t-3xl p-5 space-y-4 animate-slide-up">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h3 class="text-sm font-bold text-slate-900">Détail de la Transaction</h3>
+                    <button onclick="closeModal('txModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="text-center space-y-1">
+                    <p id="modalAmount" class="text-2xl font-black text-slate-900">+0,00 €</p>
+                    <p id="modalTitle" class="text-xs font-bold text-slate-700">Libellé</p>
+                    <p id="modalDate" class="text-[10px] text-slate-400">Date</p>
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl text-xs space-y-1 text-slate-600">
+                    <p><strong class="text-slate-800">Note / Reference:</strong></p>
+                    <p id="modalDesc">Aucun détail supplémentaire.</p>
+                </div>
+                <button onclick="showToast('Justificatif bancaire téléchargé')" class="w-full bg-ca-green text-white font-bold py-2.5 rounded-xl text-xs">
+                    Télécharger le justificatif PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal: Add Beneficiary -->
+        <div id="beneficiaryModal" class="absolute inset-0 bg-black/50 z-50 flex items-end justify-center hidden">
+            <div class="bg-white w-full rounded-t-3xl p-5 space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                    <h3 class="text-sm font-bold text-slate-900">Nouveau Bénéficiaire</h3>
+                    <button onclick="closeModal('beneficiaryModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="space-y-2 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-0.5">Nom du bénéficiaire</label>
+                        <input type="text" id="newBenName" placeholder="Ex: Jean Dupont" class="w-full border border-slate-200 rounded-xl p-2">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-0.5">IBAN</label>
+                        <input type="text" placeholder="FR76 0000 0000 0000 0000 000" class="w-full border border-slate-200 rounded-xl p-2 font-mono">
+                    </div>
+                </div>
+                <button onclick="addBeneficiary()" class="w-full bg-ca-green text-white font-bold py-2.5 rounded-xl text-xs mt-2">
+                    Ajouter le bénéficiaire
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application Interactivity Scripts -->
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Reset navigation button active styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-ca-green', 'font-medium');
+                btn.classList.add('text-slate-500');
+            });
+
+            // Show selected tab content
+            const activeTab = document.getElementById('tab-' + tabId);
+            if(activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            // Highlight corresponding bottom navigation tab
+            const activeNav = document.getElementById('nav-' + tabId);
+            if(activeNav) {
+                activeNav.classList.remove('text-slate-500');
+                activeNav.classList.add('text-ca-green', 'font-medium');
+            }
+        }
+
+        // Amount preset selection for transfer form
+        function setAmount(value) {
+            document.getElementById('transferAmount').value = value;
+        }
+
+        // Execute Transfer Simulation
+        function executeTransfer() {
+            const amount = document.getElementById('transferAmount').value;
+            const to = document.getElementById('transferTo').value;
+
+            if(!amount || amount <= 0) {
+                showToast('Veuillez saisir un montant valide');
+                return;
+            }
+
+            showToast(`Virement de ${amount} € vers ${to.split('-')[0]} exécuté !`);
+            document.getElementById('transferAmount').value = '';
+            document.getElementById('transferReason').value = '';
+        }
+
+        // Chat messaging simulation
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+
+            if(!input.value.trim()) return;
+
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-ca-green text-white p-2.5 rounded-2xl rounded-tr-none max-w-[85%] ml-auto shadow-2xs";
+            userMsg.innerHTML = `${input.value} <span class="block text-[9px] text-white/70 mt-1 text-right">À l'instant</span>`;
+            
+            chatBox.appendChild(userMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            const text = input.value;
+            input.value = '';
+
+            // Advisor Automated Response Simulation
+            setTimeout(() => {
+                const advisorReply = document.createElement('div');
+                advisorReply.className = "bg-white p-2.5 rounded-2xl rounded-tl-none border border-slate-200 max-w-[85%] text-slate-700 shadow-2xs";
+                advisorReply.innerHTML = `Bien reçu Blaise. Je prends en charge votre demande concernant "${text}". <span class="block text-[9px] text-slate-400 mt-1">À l'instant</span>`;
+                chatBox.appendChild(advisorReply);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1200);
+        }
+
+        // Modal Controllers
+        function openTransactionModal(title, amount, date, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalAmount').innerText = amount;
+            document.getElementById('modalDate').innerText = date;
+            document.getElementById('modalDesc').innerText = desc;
+            
+            document.getElementById('txModal').classList.remove('hidden');
+        }
+
+        function openBeneficiaryModal() {
+            document.getElementById('beneficiaryModal').classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function addBeneficiary() {
+            const name = document.getElementById('newBenName').value;
+            if(!name) {
+                showToast('Veuillez entrer un nom');
+                return;
+            }
+            const select = document.getElementById('transferTo');
+            const newOption = document.createElement('option');
+            newOption.text = `${name} - FR76 **** NEW`;
+            select.add(newOption);
+            select.value = newOption.text;
+
+            closeModal('beneficiaryModal');
+            showToast(`Bénéficiaire ${name} ajouté !`);
+            document.getElementById('newBenName').value = '';
+        }
+
+        // Transaction search filter
+        function searchTx() {
+            const query = document.getElementById('txSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.tx-item');
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if(text.includes(query)) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // Card Lock Toggle
+        let isLocked = false;
+        function toggleCardLock(btn) {
+            isLocked = !isLocked;
+            const statusSpan = document.getElementById('lockStatus');
+            if(isLocked) {
+                statusSpan.innerText = "Déverrouiller Carte";
+                showToast("Carte verrouillée temporairement");
+            } else {
+                statusSpan.innerText = "Verrouiller Carte";
+                showToast("Carte déverrouillée");
+            }
+        }
+
+        // Dark Mode Toggle Simulation
+        function toggleDarkMode(checkbox) {
+            if(checkbox.checked) {
+                showToast('Mode sombre activé');
+            } else {
+                showToast('Mode clair activé');
+            }
+        }
+
+        // Toast Alert System
+        let toastTimer;
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            toastText.innerText = text;
+            
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2200);
+        }
+    </script>
+<script src="api.js"></script>
+</body>
+</html>
