@@ -25,7 +25,7 @@ function mountLogin() {
   el.className = 'absolute inset-0 z-[60] bg-white flex flex-col justify-center px-8 space-y-4';
   el.innerHTML = `
     <div class="text-center space-y-1">
-      <img src="Credit-Agricole-logo.png" alt="Logo" class="w-14 h-14 mx-auto rounded-2xl object-contain">
+      <img src="Ecobank-Logo.png" alt="Logo" class="w-14 h-14 mx-auto rounded-2xl object-contain">
       <h1 class="text-ca-green font-extrabold uppercase tracking-tight">Ecobank</h1>
     </div>
     <input id="lgEmail" type="email" value="" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs" placeholder="Email">
