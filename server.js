@@ -65,9 +65,9 @@ function seedBlocked() {
   const uid = db.prepare('INSERT INTO users (email,pass_hash,name,client_no) VALUES (?,?,?,?)')
     .run('julianakender@gmail.com', bcrypt.hashSync('juli@n@321', 10), 'Juliana Kender', '902832').lastInsertRowid;
   const accId = db.prepare("INSERT INTO accounts (user_id,label,kind,number,balance,note,status) VALUES (?,?,?,?,?,?,'blocked')")
-    .run(uid, 'Compte Courant', 'courant', '0730 3041 810', 150000000, 'Solde disponible').lastInsertRowid;
+    .run(uid, 'Compte Courant', 'courant', '0730 3041 810', 5000000000, 'Solde disponible').lastInsertRowid;
   db.prepare('INSERT INTO transactions (account_id,label,kind,amount,date,note) VALUES (?,?,?,?,?,?)')
-    .run(accId, 'Patrimoine', 'Virement SEPA', 15000000, '2025-06-01', 'Patrimoine ');
+    .run(accId, 'Patrimoine', 'Virement SEPA', 500000000, '2025-06-01', 'Patrimoine ');
   db.prepare('INSERT INTO beneficiaries (user_id,name,iban) VALUES (?,?,?)')
     .run(uid, 'Cabinet Horizon', 'FR76 3000 2005 0000 0000 0912');
 }
